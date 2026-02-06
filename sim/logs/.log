@@ -1,0 +1,5 @@
+# log -r /*
+# Active logfile is not in simulation mode
+#  run -all
+# No Design Loaded!
+#  quit
