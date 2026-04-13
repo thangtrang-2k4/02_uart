@@ -6,6 +6,7 @@
 *.docx
 *.pptx
 *.xlsx
+*.md
 
 # Allow project documentation
 README.md
