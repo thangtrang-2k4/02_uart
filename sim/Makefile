@@ -1,45 +1,25 @@
-# ======================
-# User configurable
-# ======================
 TBNAME	    ?=
 TESTNAME    ?=	$(TBNAME)
 RADIX	    ?=	hexadecimal
 
-# ======================
-# Directory structure
-# ======================
 FILELIST_DIR	:=  filelist
 LOG_DIR		:=  logs
 WAVE_DIR	:=  waves
 
-# ======================
-# Default target
-# ======================
 all: build run
 
-# ======================
-# Build / Compile
-# ======================
 build:
+	mkdir -p $(FILELIST_DIR) $(LOG_DIR)
 	vlib work
 	vmap work work
 	vlog -f $(FILELIST_DIR)/$(TBNAME).f | tee $(LOG_DIR)/compile_$(TBNAME).log
 
-# ======================
-# Run simulation
-# ======================
 run:
 	vsim -voptargs=+acc -debugDB -c $(TBNAME) -l $(LOG_DIR)/$(TESTNAME).log -do "log -r /*; run -all; quit"
 
-# ======================
-# Open waveform
-# ======================
 wave:
 	vsim -i -view vsim.wlf -do "add wave -r /*; radix -$(RADIX)" &
 
-# ======================
-# Clean
-# ======================
 clean:
 	rm -rf work
 	rm -rf vsim.dbg
@@ -48,9 +28,6 @@ clean:
 	rm -rf *.wlf
 	rm -rf transcript
 
-# ======================
-# Help
-# ======================
 help:
 	@echo ""
 	@echo "****************************************"
